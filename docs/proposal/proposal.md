@@ -34,6 +34,7 @@
 ### Introduction
 
 > Describe the general area covered by the project.
+This project will be a progressive web application that will host a location-based music recognition service.
 
 
 ### Outline
