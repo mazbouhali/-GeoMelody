@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>GeoMelody</title>
+  <!-- materialize icons, css & js -->
+  <link type="text/css" href="css/materialize.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" href="css/styles.css" rel="stylesheet">
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- IOS support -->
+  <link rel="apple-touch-icon" href="/icons/music96x96.png">
+  <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
+  <meta name="theme-color" content="#FFE1C4">
+</head>
+<body class="teal lighten-5">
+
+  <!-- top nav -->
+  <nav class="z-depth-0">
+    <div class="nav-wrapper container">      
+      <span class="left grey-text text-darken-1">
+        <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
+      </span>
+      <a class="right" href="/">Geo<span>Melodyy</span></a>
+    </div>
+  </nav>
+
+  <!-- side nav -->
+  <ul id="side-menu" class="sidenav side-menu">
+    <li><a class="subheader">GeoMelody</a></li>
+    <li><a href="/" class="waves-effect">Home</a></li>
+    <li><a href="pages/about.html" class="waves-effect">About</a></li>
+    <li><a href="pages/history.html" class="waves-effect">History</a></li>    
+  </ul>
+
+  <div class="center">
+    <button type="submit">
+      <img src="img/music.png" alt="buttonpng" />
+    </button>
+  </div>
+
+  <!-- <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
+    import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.3/firebase-firestore.js'; 
+    import { collection} from 'https://www.gstatic.com/firebasejs/9.6.3/firebase-firestore.js';
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyC0plJQ2BZVu1oN3knOX_6tiSuM8GMmJcE",
+      authDomain: "geomelody-b41cb.firebaseapp.com",
+      projectId: "geomelody-b41cb",
+      storageBucket: "geomelody-b41cb.appspot.com",
+      messagingSenderId: "764084302",
+      appId: "1:764084302:web:450541c7aa4a099707431f",
+      measurementId: "G-CWQPJRCSMW"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    export const db = getFirestore(app);
+  </script> -->
+
+  <script src="/js/app.js"></script>
+  <script src="js/common.js"></script>
+  <script src="/js/db.js"></script>
+</body>
+</html>
