@@ -42,7 +42,74 @@
   <div class="container grey-text">
     <h5 class="center">Your Search History</h5>
   </div>
+
+  <div class = "container">
+    <table class = "Table">
+      <thead>
+        <th>Artist</th>
+        <th>Title</th>
+      </thead>
+    </table>
+  </div>
+
+  <!--Populating the table -->
+  <script type = "module">
+    var tbody = document.getElementById('tbody1');
+    function AddItemToTable(artist, title){
+      let trow = document.createElement("trow");
+      let td1 = document.createElement("td");
+      let td2 = document.createElement("td");
+
+      td1.innerHTML = artist;
+      td2.innerHTML = title;
+
+      trow.appendChild(td1);
+      trow.appendChild(td2);
+
+      tbody.appendChild(trow);
+    }
+
+    function AddAllItemsToTable(TheSong){
+      tbody.innerHTML="";
+      TheSon.forEach(element => {
+        AddAllItemsToTable(element.Artist, element.Title);
+      });
+    }
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCJkcepY6HJgxynvSewRpW0oXkalE9nFH0",
+      authDomain: "sample-b60fb.firebaseapp.com",
+      projectId: "sample-b60fb",
+      storageBucket: "sample-b60fb.appspot.com",
+      messagingSenderId: "686259038560",
+      appId: "1:686259038560:web:34ff96dcbde01de57c9605"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    import { getFirestore, doc, getDoc, getDocs, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
+    const db = getFirestore();
+    //Get Data
+    async function GetAllDataOnce(){
+      const querySnapshot = await getDocs(collection(db, "Songs"));
+      var songs = [];
+      querySnapshot.forEach(doc => {
+        songs.push(doc.data());
+      });
+
+      AddAllItemsToTable(songs);
+    }
+    window.onload = GetAllDataOnce;
+  </script>
+
   <script src="/js/app.js"></script>
   <script src="../js/common.js"></script>
+  <script src="bundle.js"></script>
 </body>
 </html>
