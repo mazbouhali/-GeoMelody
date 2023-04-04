@@ -13,6 +13,8 @@ const firebaseConfig = {
     appId: "1:686259038560:web:34ff96dcbde01de57c9605"
   };
 
+console.log("Hello from index.js")
+
 initializeApp(firebaseConfig)
 
 // Authentication services
@@ -36,7 +38,6 @@ onSnapshot(colRef, (snapshot) => {
     console.log(songs)
 })
 
-/*
 //adding docs
 const addSongForm = document.querySelector('.add')
 addSongForm.addEventListener('submit', (e) => {
@@ -61,58 +62,6 @@ deleteSongForm.addEventListener('submit', (e) => {
     deleteSongForm.reset()
   })
 })
-*/
-
-
-//signing a user up
-const signupForm = document.querySelector('.signup')
-signupForm.addEventListener('submit', (e) => {
-    e.preventDefault()
-
-    const email = signupForm.email.value
-    const password = signupForm.password.value
-
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((cred) => {
-            console.log("user created:", cred.user)
-            signupForm.reset()
-       })
-       .catch((err) => {
-            console.log(err.message)
-       })
-})
-
-
-const logoutButton = document.querySelector('.logout')
-logoutButton.addEventListener('click', () => {
-    signOut(auth)
-       .then(() => {
-        console.log('The user signed out')
-       })
-       .catch((err) => {
-        console.log(err.message)
-       })
-})
-
-const loginForm = document.querySelector('.login')
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault()
-
-    const email = loginForm.email.value
-    const password = loginForm.password.value
-
-    signInWithEmailAndPassword(auth, email, password)
-       .then((cred) => {
-        console.log('user logged in:', cred.user)
-       })
-       .catch((err) => {
-        console.log(err.message)
-       })
-})
-
-onAuthStateChanged(auth, (user) => {
-    console.log("user status changed: ", user)
-})
 
 
 const axios = require("axios");
@@ -128,7 +77,7 @@ const options = {
   }
 };
 
-/*
+
 //Sends the GET request to the API endpoint with the 'options' object as a parameter
 axios.request(options).then(function (response) {
   //The response data from the Shazam API is logged to the console
@@ -168,4 +117,3 @@ form.addEventListener('submit', (event) => {
   reader.readAsDataURL(file);
   
 });
-*/

@@ -1,12 +1,22 @@
-const path = require('path')
+const path = require('path');
 
-//Takes the source file index.js and bundles them up in webpack called bundle.js
-module.exports = {
+module.exports = [
+  {
     mode: 'development',
-    entry: './js/SignIn.js', //Where we want webpack to look for our Javascript source file
+    entry: './js/index.js',
     output: {
-        path: path.resolve(__dirname), //Path for where we want the output file to be put into
-        filename: 'bundle2.js' //Name of the output file
+      path: path.resolve(__dirname),
+      filename: 'bundle.js'
     },
     watch: true
-}
+  },
+  {
+    mode: 'development',
+    entry: './js/SignIn.js',
+    output: {
+      path: path.resolve(__dirname),
+      filename: 'bundle2.js'
+    },
+    watch: true
+  },
+];
