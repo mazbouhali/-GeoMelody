@@ -48,56 +48,64 @@
       <thead>
         <th>Artist</th>
         <th>Title</th>
+        <th>Time</th>
       </thead>
+      <tbody id="tbody1"></tbody>
     </table>
   </div>
 
   <!--Populating the table -->
   <script type = "module">
     var tbody = document.getElementById('tbody1');
-    function AddItemToTable(artist, title){
-      let trow = document.createElement("trow");
+    function AddItemToTable(artist, title, time){
+      let trow = document.createElement("tr");
       let td1 = document.createElement("td");
       let td2 = document.createElement("td");
+      let td3 = document.createElement("td");
 
       td1.innerHTML = artist;
       td2.innerHTML = title;
+      td3.innerHTML = time.toDate().toLocaleString();
 
       trow.appendChild(td1);
       trow.appendChild(td2);
+      trow.appendChild(td3);
 
       tbody.appendChild(trow);
     }
 
     function AddAllItemsToTable(TheSong){
       tbody.innerHTML="";
-      TheSon.forEach(element => {
-        AddAllItemsToTable(element.Artist, element.Title);
+      TheSong.forEach(element => {
+        AddItemToTable(element.Artist, element.Title, element.createdAt);
       });
     }
 
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyCJkcepY6HJgxynvSewRpW0oXkalE9nFH0",
-      authDomain: "sample-b60fb.firebaseapp.com",
-      projectId: "sample-b60fb",
-      storageBucket: "sample-b60fb.appspot.com",
-      messagingSenderId: "686259038560",
-      appId: "1:686259038560:web:34ff96dcbde01de57c9605"
-    };
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCJkcepY6HJgxynvSewRpW0oXkalE9nFH0",
+    authDomain: "sample-b60fb.firebaseapp.com",
+    projectId: "sample-b60fb",
+    storageBucket: "sample-b60fb.appspot.com",
+    messagingSenderId: "686259038560",
+    appId: "1:686259038560:web:34ff96dcbde01de57c9605"
+  };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
 
-    import { getFirestore, doc, getDoc, getDocs, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, getDocs, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
+  
     const db = getFirestore();
+  
     //Get Data
     async function GetAllDataOnce(){
-      const querySnapshot = await getDocs(collection(db, "Songs"));
+      const querySnapshot = await getDocs(collection(db, "songs"));
       var songs = [];
       querySnapshot.forEach(doc => {
         songs.push(doc.data());
@@ -110,6 +118,6 @@
 
   <script src="/js/app.js"></script>
   <script src="../js/common.js"></script>
-  <script src="bundle.js"></script>
 </body>
 </html>
+
