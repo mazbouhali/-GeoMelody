@@ -111,6 +111,7 @@
         songs.push(doc.data());
       });
 
+      songs.sort((a, b) => b.createdAt.toDate() - a.createdAt.toDate()); // Sort the songs array in descending order of timestamps
       AddAllItemsToTable(songs);
     }
     window.onload = GetAllDataOnce;

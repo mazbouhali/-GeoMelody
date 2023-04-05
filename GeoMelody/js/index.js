@@ -63,57 +63,35 @@ deleteSongForm.addEventListener('submit', (e) => {
   })
 })
 
+///////////////////////////////////////////////////////////////////////////////
+////////////////////////////// AUD-D API /////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
-const axios = require("axios");
+const button = document.getElementById('audD');
+var axios = require("axios");
 
-const options = {
-  method: 'GET',
-  url: 'https://shazam.p.rapidapi.com/shazam-events/list', //Shazam API Endpoint
-  //Parameters needed to retrieve the list of Shazam events
-  params: {artistId: '73406786', l: 'en-US', from: '2022-12-31', limit: '50', offset: '0'},
-  headers: {
-    'X-RapidAPI-Key': '745ce762a9msh0536864325395c8p1d4713jsne89175c7ad35',
-    'X-RapidAPI-Host': 'shazam.p.rapidapi.com'
-  }
-};
+button.addEventListener('click', (event) => {
+  event.preventDefault();
+  const url = document.getElementById('audioUrl').value;
 
-
-//Sends the GET request to the API endpoint with the 'options' object as a parameter
-axios.request(options).then(function (response) {
-  //The response data from the Shazam API is logged to the console
-	console.log(response.data);
-}).catch(function (error) { //Error handling
-	console.error(error);
-});
-
-const form = document.getElementById('musicRecognitionForm');
-const input = document.getElementById('audioFile');
-
-form.addEventListener('submit', (event) => {
-  event.preventDefault(); // prevent the form from submitting
-
-  const file = input.files[0];
-  const reader = new FileReader();
-
-  reader.onloadend = function() {
-    const data = new FormData();
-    data.append('file', file);
-
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://shazam.p.rapidapi.com/shazam-events/list', true);
-    xhr.setRequestHeader('x-rapidapi-key', '745ce762a9msh0536864325395c8p1d4713jsne89175c7ad3');
-    xhr.setRequestHeader('x-rapidapi-host', 'shazam.p.rapidapi.com');
-
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        const response = JSON.parse(xhr.responseText);
-        console.log(response);
-      }
-    }
-
-    xhr.send(data);
+  var data = {
+    'api_token': 'ea9ce5f98f4ac6388733c8efe213c884',
+    'url': url,
+    'accurate_offsets': 'true',
+    'skip': '3',
+    'every': '1',
   };
-
-  reader.readAsDataURL(file);
   
+  axios({
+    method: 'post',
+    url: 'https://enterprise.audd.io/',
+    data: data,
+    headers: { 'Content-Type': 'multipart/form-data' },
+  })
+  .then((response) => {
+    console.log(response);
+  })
+  .catch((error) =>  {
+    console.log(error);
+  });
 });
