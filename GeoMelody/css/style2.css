@@ -201,3 +201,8 @@ img {
   height: 100%;
   border-radius: 50%;
 }
+
+#map-container {
+  height: 200px;
+  width: 300px;
+}
