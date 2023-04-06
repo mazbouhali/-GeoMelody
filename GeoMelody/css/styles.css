@@ -1,8 +1,8 @@
 /* colours */
-:root{
-  --primary: #b2dfdb ;
-  --secondary: #4db6ac ;
-  --title: #00695c  ;
+:root {
+  --primary: #5f43b2;
+  --secondary: #4a148c;
+  --title: #ffffff;
 }
 
 /* layout styles */
@@ -21,7 +21,6 @@ nav .sidenav-trigger{
   margin: 0;
 }
 
-/* contact styles */
 .contacts{
   margin-top: 20px;
 }
@@ -100,7 +99,7 @@ form .input-field{
   grid-template-columns: 2fr 6fr 1fr;
   grid-template-areas: "image details delete";
   position: relative;
-  background: #80cbc4 ;
+  background: #f50057 ;
   align-items: center;
   margin-bottom: 8px;
 }
@@ -154,5 +153,13 @@ button:hover {
 img {
   width: 160px;
   height: 160px;
+}
+
+.table.striped > tbody > tr:nth-child(odd) {
+  background-color: #e0e0e0; /* light gray */
+}
+
+.table.striped > tbody > tr:nth-child(even) {
+  background-color: #cfcfcf; /* darker gray */
 }
 

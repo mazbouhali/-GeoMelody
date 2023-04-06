@@ -38,6 +38,7 @@ onSnapshot(colRef, (snapshot) => {
     console.log(songs)
 })
 
+/*
 //adding docs
 const addSongForm = document.querySelector('.add')
 addSongForm.addEventListener('submit', (e) => {
@@ -49,6 +50,7 @@ addSongForm.addEventListener('submit', (e) => {
     createdAt: serverTimestamp()
   })
 })
+*/
 
 //deleting docs
 const deleteSongForm = document.querySelector('.delete')
@@ -66,7 +68,7 @@ deleteSongForm.addEventListener('submit', (e) => {
 ///////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// AUD-D API /////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-console.log("Working?")
+
 const button = document.getElementById('audD');
 var axios = require("axios");
 
