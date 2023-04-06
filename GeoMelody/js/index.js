@@ -100,6 +100,13 @@ button.addEventListener('click', (event) => {
     })
     .then(() => {
       console.log(`Added ${title} by ${artist} to Firestore`);
+      const notification = document.createElement('div');
+      notification.classList.add('notification');
+      notification.textContent = `This song is ${title} by ${artist}`;
+      document.body.appendChild(notification);
+      setTimeout(() => {
+        notification.remove();
+      }, 5000);
     })
     .catch((error) => {
       console.error(`Error adding ${title} by ${artist} to Firestore: `, error);

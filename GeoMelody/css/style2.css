@@ -142,3 +142,62 @@ img {
   height: 160px;
 }
 
+#musicRecognitionForm img {
+  background-color: inherit;
+}
+
+.notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 24px;
+  z-index: 9999;
+  backdrop-filter: blur(10px);
+}
+
+.notification.show {
+  animation: fadeIn 0.5s, fadeOut 0.5s 4.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.center-circular-button {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #0077cc;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  padding: 0;
+  border: none;
+}
+
+.center-circular-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
