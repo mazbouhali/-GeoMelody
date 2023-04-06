@@ -66,7 +66,7 @@ deleteSongForm.addEventListener('submit', (e) => {
 ///////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// AUD-D API /////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-
+console.log("Working?")
 const button = document.getElementById('audD');
 var axios = require("axios");
 
@@ -89,7 +89,19 @@ button.addEventListener('click', (event) => {
     headers: { 'Content-Type': 'multipart/form-data' },
   })
   .then((response) => {
-    console.log(response);
+    const artist = response.data.result[0].songs[0].artist;
+    const title = response.data.result[0].songs[0].title;
+    addDoc(colRef, {
+      Artist: artist,
+      Title: title,
+      createdAt: serverTimestamp()
+    })
+    .then(() => {
+      console.log(`Added ${title} by ${artist} to Firestore`);
+    })
+    .catch((error) => {
+      console.error(`Error adding ${title} by ${artist} to Firestore: `, error);
+    });
   })
   .catch((error) =>  {
     console.log(error);
