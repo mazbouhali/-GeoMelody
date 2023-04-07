@@ -5,13 +5,13 @@ import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPas
 
 //Allows us to connect firebase to our project
 const firebaseConfig = {
-    apiKey: "AIzaSyCJkcepY6HJgxynvSewRpW0oXkalE9nFH0",
-    authDomain: "sample-b60fb.firebaseapp.com",
-    projectId: "sample-b60fb",
-    storageBucket: "sample-b60fb.appspot.com",
-    messagingSenderId: "686259038560",
-    appId: "1:686259038560:web:34ff96dcbde01de57c9605"
-  };
+  apiKey: "AIzaSyCJkcepY6HJgxynvSewRpW0oXkalE9nFH0",
+  authDomain: "sample-b60fb.firebaseapp.com",
+  projectId: "sample-b60fb",
+  storageBucket: "sample-b60fb.appspot.com",
+  messagingSenderId: "686259038560",
+  appId: "1:686259038560:web:34ff96dcbde01de57c9605"
+};
 
 console.log("Hello from index.js")
 
@@ -66,7 +66,7 @@ deleteSongForm.addEventListener('submit', (e) => {
 })
 
 ///////////////////////////////////////////////////////////////////////////////
-////////////////////////////// AUD-D API /////////////////////////////////////
+////////////////////////////// AUD-D API / Google Maps API ////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 const button = document.getElementById('audD');
 var axios = require("axios");
@@ -134,10 +134,25 @@ button.addEventListener('click', (event) => {
   getLocation();  // Call the getLocation() function to get the user's location
 });
 
+function initMap(latitude, longitude) {
+  // Create a map centered on the user's location
+  const map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: latitude, lng: longitude },
+    zoom: 15
+  });
+
+  // Add a marker for the user's location
+  const marker = new google.maps.Marker({
+    position: { lat: latitude, lng: longitude },
+    map: map,
+    title: 'Your location'
+  });
+}
+
 //////////////////////////////////////////////////////////////////////
 ///////////////////////Google Maps API////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-
+/*
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
@@ -193,3 +208,4 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 window.initMap = initMap;
+*/
