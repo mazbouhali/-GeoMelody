@@ -44,8 +44,8 @@
     <h5 class="center" style="color: #000000">Your Search History</h5>
   </div>
 
-  <div class = "container">
-    <table class = "Table striped">
+  <div class="container">
+    <table class="Table striped">
       <thead>
         <th>Artist</th>
         <th>Title</th>
@@ -57,9 +57,9 @@
   </div>
   
   <!--Populating the table -->
-  <script type = "module">
+  <script type="module">
     var tbody = document.getElementById('tbody1');
-    function AddItemToTable(artist, title, time, location){
+    function AddItemToTable(artist, title, time, address) {
       let trow = document.createElement("tr");
       let td1 = document.createElement("td");
       let td2 = document.createElement("td");
@@ -69,7 +69,7 @@
       td1.innerHTML = artist;
       td2.innerHTML = title;
       td3.innerHTML = time.toDate().toLocaleString();
-      td4.innerHTML = location;
+      td4.innerHTML = address;
   
       trow.appendChild(td1);
       trow.appendChild(td2);
@@ -79,10 +79,10 @@
       tbody.appendChild(trow);
     }
   
-    function AddAllItemsToTable(TheSong){
-      tbody.innerHTML="";
+    function AddAllItemsToTable(TheSong) {
+      tbody.innerHTML = "";
       TheSong.forEach(element => {
-        AddItemToTable(element.Artist, element.Title, element.createdAt, element.Location);
+        AddItemToTable(element.Artist, element.Title, element.createdAt, element.Address);
       });
     }
   
@@ -105,11 +105,11 @@
     const app = initializeApp(firebaseConfig);
   
     import { getFirestore, doc, getDoc, getDocs, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
-    
+  
     const db = getFirestore();
-    
+  
     //Get Data
-    async function GetAllDataOnce(){
+    async function GetAllDataOnce() {
       const querySnapshot = await getDocs(collection(db, "songs"));
       var songs = [];
       querySnapshot.forEach(doc => {
@@ -125,5 +125,5 @@
   <script src="/js/app.js"></script>
   <script src="../js/common.js"></script>
   </body>
+  
   </html>
-

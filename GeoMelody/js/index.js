@@ -79,50 +79,66 @@ function getLocation() {
       const longitude = position.coords.longitude;
       console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
 
-      const url = document.getElementById('audioUrl').value;
-      var data = {
-        'api_token': 'ea9ce5f98f4ac6388733c8efe213c884',
-        'url': url,
-        'accurate_offsets': 'true',
-        'skip': '3',
-        'every': '1',
-        'lat': latitude,  // Add latitude parameter to API request
-        'lng': longitude  // Add longitude parameter to API request
-      };
+      const geocoder = new google.maps.Geocoder();
+      const latlng = { lat: latitude, lng: longitude };
 
-      axios({
-        method: 'post',
-        url: 'https://enterprise.audd.io/',
-        data: data,
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
-      .then((response) => {
-        const artist = response.data.result[0].songs[0].artist;
-        const title = response.data.result[0].songs[0].title;
-        addDoc(colRef, {
-          Artist: artist,
-          Title: title,
-          createdAt: serverTimestamp()
-        })
-        .then(() => {
-          console.log(`Added ${title} by ${artist} to Firestore`);
-          const notification = document.createElement('div');
-          notification.classList.add('notification');
-          notification.textContent = `This song is ${title} by ${artist}`;
-          document.body.appendChild(notification);
-          setTimeout(() => {
-            notification.remove();
-          }, 5000);
+      geocoder.geocode({ location: latlng }, (results, status) => {
+        if (status === "OK") {
+          if (results[0]) {
+            const address = results[0].formatted_address;
+            console.log(`Address: ${address}`);
 
-          // Call the initMap function with the user's current location
-          initMap(latitude, longitude);
-        })
-        .catch((error) => {
-          console.error(`Error adding ${title} by ${artist} to Firestore: `, error);
-        });
-      })
-      .catch((error) =>  {
-        console.log(error);
+            const url = document.getElementById('audioUrl').value;
+            const data = {
+              'api_token': 'ea9ce5f98f4ac6388733c8efe213c884',
+              'url': url,
+              'accurate_offsets': 'true',
+              'skip': '3',
+              'every': '1',
+              'address': address // Add address parameter to API request
+            };
+
+            axios({
+              method: 'post',
+              url: 'https://enterprise.audd.io/',
+              data: data,
+              headers: { 'Content-Type': 'multipart/form-data' },
+            })
+            .then((response) => {
+              const artist = response.data.result[0].songs[0].artist;
+              const title = response.data.result[0].songs[0].title;
+              addDoc(colRef, {
+                Artist: artist,
+                Title: title,
+                Address: address, // Add address field to Firestore document
+                createdAt: serverTimestamp()
+              })
+              .then(() => {
+                //console.log(`Added ${title} by ${artist} with address ${address} to Firestore`);
+                const notification = document.createElement('div');
+                notification.classList.add('notification');
+                notification.textContent = `This song is ${title} by ${artist}`;
+                document.body.appendChild(notification);
+                setTimeout(() => {
+                  notification.remove();
+                }, 5000);
+
+                // Call the initMap function with the user's current location
+                initMap(latitude, longitude);
+              })
+              .catch((error) => {
+                console.error(`Error adding ${title} by ${artist} with address ${address} to Firestore: `, error);
+              });
+            })
+            .catch((error) =>  {
+              console.log(error);
+            });
+          } else {
+            console.log('No results found');
+          }
+        } else {
+          console.log(`Geocoder failed due to: ${status}`);
+        }
       });
     });
   } else {
