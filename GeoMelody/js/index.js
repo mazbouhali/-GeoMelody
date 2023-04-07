@@ -68,6 +68,91 @@ deleteSongForm.addEventListener('submit', (e) => {
 ///////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// AUD-D API / Google Maps API ////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+/*
+const button = document.getElementById('audD');
+var axios = require("axios");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+
+      const url = document.getElementById('audioUrl').value;
+      var data = {
+        'api_token': 'ea9ce5f98f4ac6388733c8efe213c884',
+        'url': url,
+        'accurate_offsets': 'true',
+        'skip': '3',
+        'every': '1',
+        'lat': latitude,  // Add latitude parameter to API request
+        'lng': longitude  // Add longitude parameter to API request
+      };
+
+      axios({
+        method: 'post',
+        url: 'https://enterprise.audd.io/',
+        data: data,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then((response) => {
+        const artist = response.data.result[0].songs[0].artist;
+        const title = response.data.result[0].songs[0].title;
+        addDoc(colRef, {
+          Artist: artist,
+          Title: title,
+          Location: new firebase.firestore.GeoPoint(latitude, longitude), // Add location field
+          createdAt: serverTimestamp()
+        })
+        .then(() => {
+          console.log(`Added ${title} by ${artist} to Firestore`);
+          const notification = document.createElement('div');
+          notification.classList.add('notification');
+          notification.textContent = `This song is ${title} by ${artist}`;
+          document.body.appendChild(notification);
+          setTimeout(() => {
+            notification.remove();
+          }, 5000);
+
+          // Call the initMap function with the user's current location
+          initMap(latitude, longitude);
+
+        })
+        .catch((error) => {
+          console.error(`Error adding ${title} by ${artist} to Firestore: `, error);
+        });
+      })
+      .catch((error) =>  {
+        console.log(error);
+      });
+    });
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+
+button.addEventListener('click', (event) => {
+  event.preventDefault();
+  getLocation();  // Call the getLocation() function to get the user's location
+});
+
+function initMap(latitude, longitude) {
+  // Create a map centered on the user's location
+  const map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: latitude, lng: longitude },
+    zoom: 15
+  });
+
+  // Add a marker for the user's location
+  const marker = new google.maps.Marker({
+    position: { lat: latitude, lng: longitude },
+    map: map,
+    title: 'Your location'
+  });
+}
+*/
+
 const button = document.getElementById('audD');
 var axios = require("axios");
 
@@ -148,64 +233,3 @@ function initMap(latitude, longitude) {
     title: 'Your location'
   });
 }
-
-//////////////////////////////////////////////////////////////////////
-///////////////////////Google Maps API////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-/*
-// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
-let map, infoWindow;
-
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 6,
-  });
-  infoWindow = new google.maps.InfoWindow();
-
-  const locationButton = document.createElement("button");
-
-  locationButton.textContent = "Pan to Current Location";
-  locationButton.classList.add("custom-map-control-button");
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-  locationButton.addEventListener("click", () => {
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("Location found.");
-          infoWindow.open(map);
-          map.setCenter(pos);
-        },
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-  });
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(
-    browserHasGeolocation
-      ? "Error: The Geolocation service failed."
-      : "Error: Your browser doesn't support geolocation."
-  );
-  infoWindow.open(map);
-}
-
-window.initMap = initMap;
-*/
