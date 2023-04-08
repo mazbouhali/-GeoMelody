@@ -12,7 +12,7 @@ module.exports = [
   },
   {
     mode: 'development',
-    entry: './js/SignIn.js',
+    entry: './js/SingIn.js',
     output: {
       path: path.resolve(__dirname),
       filename: 'bundle2.js'

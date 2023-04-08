@@ -82,7 +82,7 @@ function getLocation() {
       const geocoder = new google.maps.Geocoder();
       const latlng = { lat: latitude, lng: longitude };
 
-      geocoder.geocode({ location: latlng }, (results, status) => {
+      geocoder.geocode({ location: latlng, language: 'en'  }, (results, status) => {
         if (status === "OK") {
           if (results[0]) {
             const address = results[0].formatted_address;

@@ -1,7 +1,9 @@
 
 import { initializeApp } from 'firebase/app'
 import {getFirestore, collection, getDocs, addDoc, doc, deleteDoc, onSnapshot, query, where, orderBy, serverTimestamp, getDoc, updateDoc } from 'firebase/firestore'
-import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, onAuthStateChanged, } from 'firebase/auth'
+
+const redirectUrl = 'http://127.0.0.1:5500/pages/signIn.html';
 
 //Allows us to connect firebase to our project
 const firebaseConfig = {
@@ -78,6 +80,7 @@ loginForm.addEventListener('submit', (e) => {
     signInWithEmailAndPassword(auth, email, password)
        .then((cred) => {
         console.log('user logged in:', cred.user)
+        window.location.href = redirectUrl;
        })
        .catch((err) => {
         console.log(err.message)
