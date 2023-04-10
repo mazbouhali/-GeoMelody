@@ -87,6 +87,12 @@ loginForm.addEventListener('submit', (e) => {
        })
 })
 
+
 onAuthStateChanged(auth, (user) => {
-    console.log("user status changed: ", user)
+    if (user) {
+        console.log("user status changed: ", user)
+        userDisplay.innerHTML = `Welcome, ${user.displayName}`
+    } else {
+        userDisplay.innerHTML = ""
+    }
 })

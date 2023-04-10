@@ -143,5 +143,33 @@
     width: 160px;
     height: 160px;
   }
+
+  .login{
+    margin-top: 100px;
+  }
+
+  .login label{
+    font-size: 16px;
+  }
+
+  .login input{
+    font-size: 16px;
+  }
+
+  .login button:hover{
+    padding: 0px 40px;
+  }
+
+  .signup{
+    margin-top: 100px;
+  }
+
+  .signup label{
+    font-size: 16px;
+  }
+
+  .login .card{
+    background: rgba(0, 0, 0, .6);
+  }
   
   

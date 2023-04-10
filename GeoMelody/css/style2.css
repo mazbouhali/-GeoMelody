@@ -9,7 +9,36 @@
 nav{
   background: var(--primary);
   border-bottom: 10px solid var(--secondary);
+  box-shadow: none;
 }
+
+nav .brand-logo img {
+  height: 60px;
+}
+
+nav #user-display {
+  display: flex;
+  align-items: center;
+}
+
+nav .user-display-item {
+  font-size: 18px;
+  margin-right: 16px;
+}
+
+nav .user-email {
+  font-weight: bold;
+}
+
+nav .logout-button {
+  font-size: 18px;
+  color: #777777;
+}
+
+nav .logout-button:hover {
+  color: #333333;
+}
+
 nav a{
   text-transform: uppercase;
   color: var(--title);
