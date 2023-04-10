@@ -136,11 +136,18 @@ function getLocation() {
             .then((response) => {
               const artist = response.data.result[0].songs[0].artist;
               const title = response.data.result[0].songs[0].title;
-              addDoc(colRef, {
+              const userDocRef = doc(db, "users", currentUserID);
+              addDoc(collection(userDocRef, "data"), {
                 Artist: artist,
                 Title: title,
-                Address: address, // Add address field to Firestore document
+                Address: address,
                 createdAt: serverTimestamp()
+              })
+              .then(() => {
+                // rest of the code
+              })
+              .catch((error) => {
+                console.error(`Error adding ${title} by ${artist} with address ${address} to Firestore: `, error);
               })
               .then(() => {
                 //console.log(`Added ${title} by ${artist} with address ${address} to Firestore`);
