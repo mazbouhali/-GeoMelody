@@ -106,24 +106,30 @@
     };
   
     // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-  
     import { getFirestore, doc, getDoc, getDocs, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
-  
-    const db = getFirestore();
-  
-    //Get Data
-    async function GetAllDataOnce() {
-      const querySnapshot = await getDocs(collection(db, "songs"));
-      var songs = [];
-      querySnapshot.forEach(doc => {
-        songs.push(doc.data());
-      });
-  
-      songs.sort((a, b) => b.createdAt.toDate() - a.createdAt.toDate()); // Sort the songs array in descending order of timestamps
-      AddAllItemsToTable(songs);
-    }
-    window.onload = GetAllDataOnce;
+    import { getAuth } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+// Listen for authentication state changes
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const userId = user.uid;
+        const userDocRef = doc(db, "users", userId);
+        const querySnapshot = await getDocs(collection(userDocRef, "data"));
+        var data = [];
+        querySnapshot.forEach((doc) => {
+          data.push(doc.data());
+        });
+
+        data.sort((a, b) => b.createdAt.toDate() - a.createdAt.toDate()); // Sort the data array in descending order of timestamps
+        AddAllItemsToTable(data);
+      }
+    });
+
+    window.onload = getAllDataOnce;
   </script>
   
   <script src="/js/app.js"></script>
