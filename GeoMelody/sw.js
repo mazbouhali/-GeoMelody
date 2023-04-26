@@ -6,24 +6,30 @@
 // Also listens to life cycle events
 // When the service worker is active it can listen to fetch requests and interceprt them if needed
 
-const staticCacheName = 'site-static-v16';
+const staticCacheName = 'site-static-01';
 const dynamicCache = 'site-dynamic-v1';
 const assets = [
     '/',
+    '/bundle.js',
+    '/bundle2.js',
     '/index.html',
     '/js/app.js',
     '/js/common.js',
     '/js/materialize.min.js',
     '/css/styles.css',
+    '/css/style2.css',
+    '/css/style3.css',
     '/css/materialize.min.css',
-    '/img/music.png',
+    '/img/GeoMelody_1.png',
     'https://fonts.googleapis.com/icon?family=Material+Icons',
     'https://fonts.gstatic.com/s/materialicons/v139/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2',
+    '/pages/signIn.html',
     '/pages/fallback.html',
     '/pages/about.html',
     '/pages/history.html'
 ];
 
+/*
 //cache size limit function
 const limitCacheSize = (name, size) => {
     caches.open(name).then(cache => {
@@ -34,7 +40,7 @@ const limitCacheSize = (name, size) => {
         })
     })
 };
-
+*/
 
 //install service worker
 self.addEventListener('install', evt => {
@@ -62,26 +68,16 @@ self.addEventListener('activate', evt => {
     );
 });
 
+/*
 self.addEventListener('fetch', evt => {
-    //console.log('fetch event', evt);
-   // evt.respondWith(
-     //   //This code checks all the chaches for a request
-       // caches.match(evt.request).then(cacheRes => {
-         //   return cacheRes || fetch(evt.request).then(fetchRes => {
-           //     return caches.open(dynamicCacheName).then(cache => {
-             //       cache.put(evt.request.url, fetchRes.clone());
-               //     limitCacheSize(dynamicCacheName, 15);
-                 //   return fetchRes;
-               // })
-           // });
-        //}).catch(() => {
-          //  if(evt.request.url.indexOf('.html') > -1){
-            //    return caches.match('/pages/fallback.html');
-            //}
-        //})
-    //);
+    console.log('fetch event', evt);
+    evt.respondWith(
+        caches.match(evt.request).then(cacheRes => {
+            return cacheRes || fetch(evt.request);
+        })
+    );
 });
-
+*/
 //Now, when we're making fetch requests online or offline we're intercepting the fetch, 
 //seeing if the fetch request is in the cache
 //if so it returns it to the user
