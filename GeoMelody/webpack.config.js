@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = [
   {
     mode: 'development',
-    entry: './js/index.js',
+    entry: './js/scan.js',
     output: {
       path: path.resolve(__dirname),
       filename: 'bundle.js'
@@ -12,7 +12,7 @@ module.exports = [
   },
   {
     mode: 'development',
-    entry: './js/SingIn.js',
+    entry: './js/index.js',
     output: {
       path: path.resolve(__dirname),
       filename: 'bundle2.js'
